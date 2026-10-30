@@ -127,4 +127,22 @@ export const MENU: MenuCategory[] = [
       },
     ],
   },
+    {
+    id: "bar",
+    title: "Бар",
+    subcategories: [
+      {
+        title: "Кофе",
+        items: [
+          { name: "PLACEHOLDER", price: "0" },
+        ],
+      },
+      {
+        title: "Напитки",
+        items: [
+          { name: "PLACEHOLDER", price: "0" },
+        ],
+      },
+    ],
+  },
 ];
