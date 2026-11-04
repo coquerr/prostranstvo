@@ -14,13 +14,12 @@ const cormorant = Cormorant_Garamond({
 
 const manrope = Manrope({
   subsets: ["latin", "cyrillic"],
-  weight: ["400", "500", "600"],
   variable: "--font-manrope",
   display: "swap",
 });
 
 // PLACEHOLDER: заменить на реальный домен, когда он будет куплен/подтверждён.
-const SITE_URL = "https://prostranstvo-restaurant.ru";
+const SITE_URL = "https://prostranstvorestaurant.ru";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
