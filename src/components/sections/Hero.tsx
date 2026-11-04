@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Container from "@/components/ui/Container";
 import Divider from "@/components/ui/Divider";
 import Ornament from "@/components/ui/Ornament";
@@ -12,13 +13,16 @@ export default function Hero() {
           Ресторан
         </span>
 
-        <h1 className="mt-6 flex flex-col leading-[0.95] text-beige">
-          <span className="text-6xl font-medium tracking-wide sm:text-7xl lg:text-8xl">
-            ПРОСТРА
-          </span>
-          <span className="text-6xl font-medium tracking-wide sm:text-7xl lg:text-8xl">
-            НСТВО
-          </span>
+        <h1 className="mt-6 flex justify-center">
+          <Image
+            src="/images/logo/logo.png"
+            alt="ПРОСТРАНСТВО"
+            width={788}
+            height={275}
+            priority
+            sizes="(max-width: 640px) 90vw, (max-width: 1024px) 480px, 600px"
+            className="h-auto w-[90vw] max-w-[600px]"
+          />
         </h1>
 
         <Divider className="mt-10" />

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 interface MenuCategoryNavProps {
   categories: { id: string; title: string }[];
@@ -8,10 +8,11 @@ interface MenuCategoryNavProps {
 
 export default function MenuCategoryNav({ categories }: MenuCategoryNavProps) {
   const [activeId, setActiveId] = useState(categories[0]?.id ?? "");
+  const navRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
-      const offset = 140;
+      const offset = 120;
       let current = categories[0]?.id ?? "";
 
       for (const category of categories) {
@@ -30,10 +31,26 @@ export default function MenuCategoryNav({ categories }: MenuCategoryNavProps) {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [categories]);
 
+  // Автоматическая горизонтальная прокрутка панели к активной кнопке на мобильных
+  useEffect(() => {
+    if (!navRef.current || !activeId) return;
+    const activeLink = navRef.current.querySelector<HTMLAnchorElement>(
+      `a[href="#${activeId}"]`
+    );
+    if (activeLink) {
+      activeLink.scrollIntoView({
+        behavior: "smooth",
+        block: "nearest",
+        inline: "center",
+      });
+    }
+  }, [activeId]);
+
   return (
     <nav
+      ref={navRef}
       aria-label="Категории меню"
-      className="sticky top-0 z-30 -mx-6 flex gap-2 overflow-x-auto border-y border-border/60 bg-background/95 px-6 py-4 backdrop-blur-sm sm:mx-0 sm:justify-center sm:gap-4 sm:border sm:px-4"
+      className="-mx-6 flex gap-2 overflow-x-auto border-y border-border/60 bg-background/95 px-6 py-4 backdrop-blur-md [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden sm:mx-0 sm:justify-center sm:gap-4 sm:border sm:px-4"
     >
       {categories.map((category) => (
         <a

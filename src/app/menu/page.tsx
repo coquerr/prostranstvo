@@ -5,6 +5,7 @@ import Divider from "@/components/ui/Divider";
 import MenuCategoryBlock from "@/components/menu/MenuCategoryBlock";
 import MenuCategoryNav from "@/components/menu/MenuCategoryNav";
 import MenuLayoutToggle from "@/components/menu/MenuLayoutToggle";
+import MenuPattern from "@/components/ui/MenuPattern";
 import { MenuLayoutProvider } from "@/context/MenuLayoutContext";
 import { MENU } from "@/data/menu";
 import { contactInfo } from "@/data/contact";
@@ -31,24 +32,28 @@ export default function MenuPage() {
     title: category.title,
   }));
 
-return (
+  return (
     <MenuLayoutProvider>
-      <main className="bg-background pb-12 pt-28 sm:pb-16 sm:pt-32 lg:pb-24 lg:pt-40">
+      <main className="relative isolate bg-background pb-12 pt-28 sm:pb-16 sm:pt-32 lg:pb-24 lg:pt-40">
+        <MenuPattern />
         <Container className="flex flex-col items-center text-center">
           <SectionHeading as="h1" subtitle="Ресторан «Пространство»" title="Меню" />
           <span className="mt-2 text-sm text-muted">{contactInfo.addressDisplay}</span>
         </Container>
 
-        <div className="mt-12">
+        {/* Вынесли навигацию на верхний уровень main и дали ей sticky top-0 */}
+        <div className="sticky top-0 z-30 mt-12">
           <Container>
             <MenuCategoryNav categories={categories} />
           </Container>
-          <Container className="mt-3 flex justify-end sm:hidden">
-            <MenuLayoutToggle />
-          </Container>
         </div>
 
-        <div className="mt-16 flex flex-col gap-24 sm:gap-32">
+        {/* Переключатель сетки остаётся в обычном потоке и уезжает при скролле */}
+        <Container className="mt-3 flex justify-end sm:hidden">
+          <MenuLayoutToggle />
+        </Container>
+
+        <div className="mt-12 flex flex-col gap-24 sm:mt-16 sm:gap-32">
           {MENU.map((category, index) => (
             <div key={category.id}>
               <Container>
